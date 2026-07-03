@@ -54,17 +54,22 @@
     </style>
 
     <script>
-        async function signup() {
+
+        async function signin() {
+
             const userName = document.getElementById("userName").value;
             const password = document.getElementById("password").value;
 
-            await axios.post("http:localhost:3000/signup", {
+            const response = await axios.post("http:localhost:3000/signup", {
                 userName,
                 password
             })
 
-            window.location = "/signin";
+            const token = response.data.token;
 
+            localStorage.setItem("token", token);
+
+            window.location = "/";
         }
     </script>
 
@@ -72,10 +77,10 @@
 
 <body>
     <div id="root">
-        <h1>Sign Up</h1>
+        <h1>Sign In</h1>
         <input id="userName" type="text" placeholder="Username">
         <input type="password" name="password" id="password" placeholder="Password">
-        <button onclick="signup()">Sign Up</button>
+        <button onclick="signin()">Sign In</button>
     </div>
 </body>
 
